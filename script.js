@@ -6,7 +6,7 @@ $(document).ready(function () {
         var playlist2 = playlist1.filter(function (item) {
             return item.repeated === true;
         });
-        var currentPlaylist = playlist1;
+        var currentPlaylist = playlist2;
 
         var currentSongIndex = 0;
         const songsPerPage = 20;
@@ -55,8 +55,7 @@ $(document).ready(function () {
                         //$.getJSON(currentPlaylist, function(data) {
                         var currentSongIndex = Math.floor(Math.random() * data.length);
 
-                        var lyrics = data[currentSongIndex].orderId + ": " + data[currentSongIndex].answer;
-                        $("#lyrics").text(lyrics);
+                        updateLyrics();
 
                         var songFile = data[currentSongIndex].audioLink;
                         var audioElement = document.getElementById("audioPlayer");
@@ -93,8 +92,7 @@ $(document).ready(function () {
                         }
                         var data = currentPlaylist;
                         currentSongIndex < data.length - 1 ? currentSongIndex++ : currentSongIndex = 0;
-                        var lyrics = data[currentSongIndex].orderId + ": " + data[currentSongIndex].answer;
-                        $("#lyrics").text(lyrics);
+                        updateLyrics();
                         audioElement.src = data[currentSongIndex].audioLink;;
                         audioElement.play();
                         playCount = 0;
@@ -146,7 +144,7 @@ $(document).ready(function () {
             }
             var audioElement = document.getElementById("audioPlayer");
             audioElement.src = currentPlaylist[currentSongIndex].audioLink;
-            $("#lyrics").text(currentPlaylist[currentSongIndex].orderId + ": " + currentPlaylist[currentSongIndex].answer);
+            updateLyrics();
             audioElement.play();
             playCount = 0;
         });
@@ -156,7 +154,7 @@ $(document).ready(function () {
             currentSongIndex = Math.floor(Math.random() * totalSongs);
             var audioElement = document.getElementById("audioPlayer");
             audioElement.src = currentPlaylist[currentSongIndex].audioLink;
-            $("#lyrics").text(currentPlaylist[currentSongIndex].orderId + ": " + currentPlaylist[currentSongIndex].answer);
+            updateLyrics();
             audioElement.play();
             playCount = 0;
         });
@@ -168,10 +166,15 @@ $(document).ready(function () {
             }
             var audioElement = document.getElementById("audioPlayer");
             audioElement.src = currentPlaylist[currentSongIndex].audioLink;
-            $("#lyrics").text(currentPlaylist[currentSongIndex].orderId + ": " + currentPlaylist[currentSongIndex].answer);
+            updateLyrics();
             audioElement.play();
             playCount = 0;
         });
+
+        function updateLyrics() {
+            var lyrics = `<span class="${currentPlaylist[currentSongIndex].difficulty}">${currentPlaylist[currentSongIndex].difficulty.charAt(0)}</span>` + currentPlaylist[currentSongIndex].orderId + ": " + currentPlaylist[currentSongIndex].answer;
+            $("#lyrics").html(lyrics);
+        }
 
         function generateSongList() {
             var playlist = "";
@@ -313,9 +316,7 @@ $(document).ready(function () {
                 event.preventDefault();
 
                 currentSongIndex = parseInt(($(this)[0].getAttribute('value')));
-                //var lyrics = currentPlaylist[currentSongIndex].orderId + ": " + currentPlaylist[currentSongIndex].answer;
-                var lyrics = `<span class="${currentPlaylist[currentSongIndex].difficulty}">${currentPlaylist[currentSongIndex].difficulty.charAt(0)}</span>` + currentPlaylist[currentSongIndex].orderId + ": " + currentPlaylist[currentSongIndex].answer;
-                $("#lyrics").text(lyrics);
+                updateLyrics();
 
                 var songFile = currentPlaylist[currentSongIndex].audioLink;
                 var audioElement = document.getElementById("audioPlayer");
@@ -337,8 +338,7 @@ $(document).ready(function () {
                 event.preventDefault();
 
                 currentSongIndex = parseInt(($(this)[0].getAttribute('value')));
-                var lyrics = `<span class="${currentPlaylist[currentSongIndex].difficulty}">${currentPlaylist[currentSongIndex].difficulty.charAt(0)}</span>` + currentPlaylist[currentSongIndex].orderId + ": " + currentPlaylist[currentSongIndex].answer;
-                $("#lyrics").html(lyrics);
+                updateLyrics();
 
                 var songFile = currentPlaylist[currentSongIndex].audioLink;
                 var audioElement = document.getElementById("audioPlayer");
@@ -348,8 +348,7 @@ $(document).ready(function () {
             });
 
             //play first song
-            var lyrics = `<span class="${currentPlaylist[currentSongIndex].difficulty}">${currentPlaylist[currentSongIndex].difficulty.charAt(0)}</span>` + currentPlaylist[currentSongIndex].orderId + ": " + currentPlaylist[currentSongIndex].answer;
-            $("#lyrics").html(lyrics);
+            updateLyrics();
 
             var audioElement = document.getElementById("audioPlayer");
             audioElement.src = currentPlaylist[currentSongIndex].audioLink;;
