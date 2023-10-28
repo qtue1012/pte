@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trình phát âm thanh</title>
+  <!-- Bổ sung các liên kết CSS cho Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <style>
+    .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before{
+     background-color: #007bff;
+     border-color: #007bff;
+    }
+    .custom-checkbox .custom-control-input:checked ~ .custom-control-label::after{
+     color: #fff;
+    }
+    .custom-checkbox .custom-control-input:focus~ .custom-control-label::before{
+     box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+    }
+
+    .custom-checkbox-2 .custom-control-input-2:checked ~ .custom-control-label-2::before{
+     background-color: #1eff00;
+     border-color: #eeff00;
+    }
+    .custom-checkbox-2 .custom-control-input-2:checked ~ .custom-control-label-2::after{
+     color: #fff;
+    }
+    .custom-checkbox-2 .custom-control-input-2:focus~ .custom-control-label-2::before{
+     box-shadow: 0 0 0 0.2rem rgba(255, 153, 0, 0.25);
+    }
+    .playlist-container {
+        height: 600px;
+        overflow-y: auto;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <h1 class="mt-5">Trình phát âm thanh</h1>
+     <div class="form-group mt-3">
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="toggle-checkbox">
+            <label class="custom-control-label" for="toggle-checkbox">Repeated Question</label>
+
+            <input type="checkbox" class="custom-control-input-2" id="toggle-checkbox-2">
+            <label class="custom-control-label-2" for="toggle-checkbox-2">Random  Question</label>
+        </div>
+     </div>
+     <div id="audio-player"></div>
+     </div>
+
+  <!-- Bổ sung liên kết JavaScript cho Bootstrap và thư viện jQuery -->
+  <!--script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script-->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/jquery-migrate-3.3.2.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.3.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+  <!-- Bổ sung liên kết JavaScript cho trình phát âm thanh -->
+  <script src="audio-player.js"></script>
+</body>
+</html>
