@@ -177,7 +177,7 @@ $(document).ready(function () {
             var playlist = "";
             for (let i = currentSongIndex; i < currentSongIndex + songsPerPage && i < totalSongs; i++) {
                 var song = currentPlaylist[i];
-                playlist += `<a href="${song.audioLink}" class="list-group-item list-group-item-action" value="${i}">${song.orderId} - ${song.answer}</a>`;
+                playlist += `<a href="${song.audioLink}" class="list-group-item list-group-item-action" value="${i}"><span class="${song.difficulty}">${song.difficulty.charAt(0)}</span>${song.orderId} - ${song.answer}</a>`;
             }
             return playlist;
         }
@@ -313,7 +313,8 @@ $(document).ready(function () {
                 event.preventDefault();
 
                 currentSongIndex = parseInt(($(this)[0].getAttribute('value')));
-                var lyrics = currentPlaylist[currentSongIndex].orderId + ": " + currentPlaylist[currentSongIndex].answer;
+                //var lyrics = currentPlaylist[currentSongIndex].orderId + ": " + currentPlaylist[currentSongIndex].answer;
+                var lyrics = `<span class="${currentPlaylist[currentSongIndex].difficulty}">${currentPlaylist[currentSongIndex].difficulty.charAt(0)}</span>` + currentPlaylist[currentSongIndex].orderId + ": " + currentPlaylist[currentSongIndex].answer;
                 $("#lyrics").text(lyrics);
 
                 var songFile = currentPlaylist[currentSongIndex].audioLink;
@@ -326,51 +327,18 @@ $(document).ready(function () {
 
         // Tạo lại hàm tạo danh sách bài hát và phân trang để cập nhật khi có sự kiện nhấp chuột
         function generateSongListAndPagination(songs) {
-
-            var audioPlayer = `
-                    <div class="card mt-3">
-                    <div class="card-body">
-                        <audio controls id="audioPlayer">
-                        <source src="${currentPlaylist[0].audioLink}"="audio/mp3">
-                        </audio>
-                        <h6 id="lyrics" class="card-title"></h6>
-                        <nav aria-label="Page navigation">
-                            <ul class="pagination">
-                                <!-- Pagination will be filled by JavaScript -->
-                            </ul>
-                        </nav>
-                        <div class="playlist-container">
-                            <div class="list-group mt-3"></div>
-                        </div>
-                    </div>
-                    </div>
-                    `;
-
-            $("#audio-player").html(audioPlayer);
-
             // Gắn container danh sách bài hát và phân trang vào HTML
             document.querySelector(".list-group").innerHTML = generateSongList();
             //document.querySelector(".pagination").appendChild(generatePagination(totalNumberOfPages));
             renderPagination()
-
-            /* // Xác định tất cả các phần tử li trong container phân trang
-            const pageLinks = document.querySelectorAll(".page-link");
-            // Lặp qua từng phần tử li và thêm sự kiện click
-            pageLinks.forEach((pageLink) => {
-                pageLink.addEventListener("click", (event) => {
-                    event.preventDefault();
-                    const pageNumber = parseInt(pageLink.textContent, 10);
-                    handlePageClick(pageNumber);
-                });
-            }); */
 
             // Xử lý sự kiện khi người dùng nhấp vào một mục bài hát
             $(".list-group-item").click(function (event) {
                 event.preventDefault();
 
                 currentSongIndex = parseInt(($(this)[0].getAttribute('value')));
-                var lyrics = currentPlaylist[currentSongIndex].orderId + ": " + currentPlaylist[currentSongIndex].answer;
-                $("#lyrics").text(lyrics);
+                var lyrics = `<span class="${currentPlaylist[currentSongIndex].difficulty}">${currentPlaylist[currentSongIndex].difficulty.charAt(0)}</span>` + currentPlaylist[currentSongIndex].orderId + ": " + currentPlaylist[currentSongIndex].answer;
+                $("#lyrics").html(lyrics);
 
                 var songFile = currentPlaylist[currentSongIndex].audioLink;
                 var audioElement = document.getElementById("audioPlayer");
@@ -378,6 +346,17 @@ $(document).ready(function () {
                 audioElement.play();
                 playCount = 0;
             });
+
+            //play first song
+            var lyrics = `<span class="${currentPlaylist[currentSongIndex].difficulty}">${currentPlaylist[currentSongIndex].difficulty.charAt(0)}</span>` + currentPlaylist[currentSongIndex].orderId + ": " + currentPlaylist[currentSongIndex].answer;
+            $("#lyrics").html(lyrics);
+
+            var audioElement = document.getElementById("audioPlayer");
+            audioElement.src = currentPlaylist[currentSongIndex].audioLink;;
+            //setTimeout(function() { audioElement.play(); }, 1000);
+            audioElement.play();
+            playCount = 0;
+
         }
 
         // Sử dụng hàm generateSongListAndPagination để tạo danh sách ban đầu và phân trang
