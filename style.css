@@ -20,6 +20,15 @@
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
 }
 
+.custom-control-group {
+    display: flex; /* Hiển thị các phần tử con ngang hàng */
+    flex-wrap: wrap; /* Cho phép các phần tử bọc xuống hàng mới khi không đủ không gian */
+  }
+  
+  .custom-control.custom-checkbox {
+    margin-right: 15px; /* Khoảng cách giữa các checkbox */
+  }
+
 .playlist-container {
     height: 600px;
     overflow-y: auto;

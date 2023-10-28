@@ -15,7 +15,7 @@ $(document).ready(function () {
         var currentPage = 1;
         var isPlaying = false;
         var playCount = 0;
-        const intervalTime = 9000;
+        const intervalTime = 8000;
         const pagesToShow = 5;
         const audioElement = document.getElementById("audioPlayer");
         var intervals = []; // Lưu trữ ID của tất cả các interval
@@ -32,7 +32,7 @@ $(document).ready(function () {
         audioElement.addEventListener('canplaythrough', function () {
             highlightCurrentSong();
             audioElement.play();
-            playCount = 0;
+//            playCount = 0;
         });
 
         // Xử lý sự kiện khi người dùng nhấp vào checkbox to change repeaded list
@@ -67,9 +67,10 @@ $(document).ready(function () {
                             clearAllIntervals();
                             return;
                         }
-                        var currentSongIndex = Math.floor(Math.random() * currentPlaylist.length);
+                        currentSongIndex = Math.floor(Math.random() * currentPlaylist.length);
                         updateLyrics();
                         audioElement.src = currentPlaylist[currentSongIndex].audioLink;
+                        playCount = 0;
                     } else {
                         audioElement.play();
                         playCount++;
@@ -98,7 +99,8 @@ $(document).ready(function () {
                         }
                         currentSongIndex < currentPlaylist.length - 1 ? currentSongIndex++ : currentSongIndex = 0;
                         updateLyrics();
-                        audioElement.src = currentPlaylist[currentSongIndex].audioLink;;
+                        audioElement.src = currentPlaylist[currentSongIndex].audioLink;
+                        playCount = 0;
                     } else {
                         audioElement.play();
                         playCount++;
@@ -145,6 +147,7 @@ $(document).ready(function () {
                 currentSongIndex--;
             }
             audioElement.src = currentPlaylist[currentSongIndex].audioLink;
+            playCount = 0;
             updateLyrics();
         });
 
@@ -152,6 +155,7 @@ $(document).ready(function () {
         $('#ranBtn').on('click', function () {
             currentSongIndex = Math.floor(Math.random() * totalSongs);
             audioElement.src = currentPlaylist[currentSongIndex].audioLink;
+            playCount = 0;
             updateLyrics();
         });
 
@@ -161,6 +165,7 @@ $(document).ready(function () {
                 currentSongIndex++;
             }
             audioElement.src = currentPlaylist[currentSongIndex].audioLink;
+            playCount = 0;
             updateLyrics();
         });
 
@@ -313,7 +318,8 @@ $(document).ready(function () {
                 event.preventDefault();
                 currentSongIndex = parseInt(($(this)[0].getAttribute('value')));
                 updateLyrics();
-                audioElement.src = currentPlaylist[currentSongIndex].audioLink;;
+                audioElement.src = currentPlaylist[currentSongIndex].audioLink;
+                playCount = 0;
             });
         }
 
@@ -330,12 +336,14 @@ $(document).ready(function () {
 
                 currentSongIndex = parseInt(($(this)[0].getAttribute('value')));
                 updateLyrics();
-                audioElement.src = currentPlaylist[currentSongIndex].audioLink;;
+                audioElement.src = currentPlaylist[currentSongIndex].audioLink;
+                playCount = 0;
             });
 
             //play first song
             updateLyrics();
-            audioElement.src = currentPlaylist[currentSongIndex].audioLink;;
+            audioElement.src = currentPlaylist[currentSongIndex].audioLink;
+            playCount = 0;
         }
 
         // Sử dụng hàm generateSongListAndPagination để tạo danh sách ban đầu và phân trang
