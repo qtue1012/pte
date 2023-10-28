@@ -73,6 +73,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.list-group-item.active {
+    background-color: #007bff3f;
+    color: #007bff;
+}
 .center-align {
     text-align: center;
 }
