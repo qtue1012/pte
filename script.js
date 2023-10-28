@@ -169,9 +169,9 @@ $(document).ready(function () {
             $("#lyrics").html(lyrics);
         }
 
-        function generateSongList() {
+        function generateSongList(firstSongIndex) {
             var playlist = "";
-            for (let i = currentSongIndex; i < currentSongIndex + songsPerPage && i < totalSongs; i++) {
+            for (let i = firstSongIndex; i < firstSongIndex + songsPerPage && i < totalSongs; i++) {
                 var song = currentPlaylist[i];
                 playlist += `<a href="${song.audioLink}" class="list-group-item list-group-item-action" value="${i}"><span class="${song.difficulty}">${song.difficulty.charAt(0)}</span>${song.orderId} - ${song.answer}</a>`;
             }
@@ -293,25 +293,24 @@ $(document).ready(function () {
         }
 
         // Xác định hàm xử lý sự kiện nhấp chuột trên mỗi trang
-        function handlePageClick(pageNumber) {
-            console.log(`Người dùng đã nhấp chuột vào trang số ${pageNumber}`);
-            currentPage = pageNumber;
-            currentSongIndex = (currentPage - 1) * songsPerPage;
+        function handlePageClick() {
+            console.log(`Người dùng đã nhấp chuột vào trang số ${currentPage}`);
+            //currentSongIndex = (currentPage - 1) * songsPerPage;
             // Xóa danh sách bài hát hiện tại
             const listGroup = document.querySelector(".list-group");
             listGroup.innerHTML = "";
 
             // Tính toán chỉ số của bài hát đầu tiên và bài hát cuối cùng trên trang được nhấp
-            const firstSongIndex = (pageNumber - 1) * songsPerPage;
-            const lastSongIndex = Math.min(firstSongIndex + songsPerPage, totalSongs);
+            var firstSongIndex = (currentPage - 1) * songsPerPage;
+            // const lastSongIndex = Math.min(firstSongIndex + songsPerPage, totalSongs);
 
             // Tạo danh sách bài hát cho trang được nhấp
-            listGroup.innerHTML = generateSongList();
-
+            listGroup.innerHTML = generateSongList(firstSongIndex);
+            highlightCurrentSong();
+            
             // Xử lý sự kiện khi người dùng nhấp vào một mục bài hát
             $(".list-group-item").click(function (event) {
                 event.preventDefault();
-
                 currentSongIndex = parseInt(($(this)[0].getAttribute('value')));
                 updateLyrics();
                 audioElement.src = currentPlaylist[currentSongIndex].audioLink;;
@@ -321,8 +320,8 @@ $(document).ready(function () {
         // Tạo lại hàm tạo danh sách bài hát và phân trang để cập nhật khi có sự kiện nhấp chuột
         function generateSongListAndPagination() {
             // Gắn container danh sách bài hát và phân trang vào HTML
-            document.querySelector(".list-group").innerHTML = generateSongList();
-            //document.querySelector(".pagination").appendChild(generatePagination(totalNumberOfPages));
+            document.querySelector(".list-group").innerHTML = generateSongList(0);
+            highlightCurrentSong();
             renderPagination()
 
             // Xử lý sự kiện khi người dùng nhấp vào một mục bài hát
