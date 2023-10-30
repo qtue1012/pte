@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
     $("#bodyHtml").load("body.html", function () {
 
@@ -34,6 +35,13 @@ $(document).ready(function () {
             audioElement.play();
 //            playCount = 0;
         });
+
+        audioElement.onended = function() {
+            setTimeout(() => {
+              console.log("Continuing to play audio after 4 seconds");              
+              audioElement.play();
+            }, 4000);
+          };
 
         // Xử lý sự kiện khi người dùng nhấp vào checkbox to change repeaded list
         $("#toggle-checkbox").change(function () {
@@ -181,26 +189,6 @@ $(document).ready(function () {
                 playlist += `<a href="${song.audioLink}" class="list-group-item list-group-item-action" value="${i}"><span class="${song.difficulty}">${song.difficulty.charAt(0)}</span>${song.orderId} - ${song.answer}</a>`;
             }
             return playlist;
-        }
-
-        function generatePagination1(numberOfPages) {
-            const paginationContainer = document.createElement("nav");
-            const ul = document.createElement("ul");
-            paginationContainer.setAttribute("aria-label", "Page navigation");
-            ul.classList.add("pagination");
-            paginationContainer.appendChild(ul);
-
-            for (let i = 1; i <= numberOfPages; i++) {
-                const li = document.createElement("li");
-                li.classList.add("page-item");
-                const link = document.createElement("a");
-                link.classList.add("page-link");
-                link.href = "#";
-                link.textContent = i;
-                li.appendChild(link);
-                ul.appendChild(li);
-            }
-            return paginationContainer;
         }
 
         // Hàm tạo HTML cho các phần tử trang
