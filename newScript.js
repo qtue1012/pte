@@ -11,6 +11,8 @@ class Playlist {
         this.intervalTime = 8000;
         this.pagesToShow = 5;
         this.intervals = [];
+        this.playlist1 = [];
+        this.playlist2 = [];
     }
     
     resetConstants() {
@@ -57,9 +59,9 @@ class Playlist {
         // Xử lý sự kiện khi người dùng nhấp vào checkbox to change repeaded list
         this.checkbox1.change(function () {
             if (self.checkbox1.is(":checked")) {
-                self.currentPlaylist = playlist2;
+                self.currentPlaylist = self.playlist2;
             } else {
-                self.currentPlaylist = playlist1;
+                self.currentPlaylist = self.playlist1;
             }
             self.resetConstants();
             self.generateSongListAndPagination();
@@ -289,9 +291,9 @@ class Playlist {
     init() {
         $(document).ready(() => {
             $("#bodyHtml").load("body.html", () => {
-                const playlist1 = window.playlist1;
-                const playlist2 = playlist1.filter(item => item.repeated === true);
-                this.currentPlaylist = playlist2;
+                this.playlist1 = window.playlist1;
+                this.playlist2 = this.playlist1.filter(item => item.repeated === true);
+                this.currentPlaylist = this.playlist2;
                 this.resetConstants();
                 this.generateSongListAndPagination();
                 this.genderEventHandler();
