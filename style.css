@@ -100,6 +100,17 @@
     background: rgb(39, 194, 129);
     margin-right: 4px;
 }
+.NA {
+    color: #FFFFFF;
+    padding: 2px 8px;
+    font-weight: 700;
+    line-height: 23px;
+    border-radius: 92px;
+    text-transform: capitalize;
+    max-width: 26px;
+    background: rgb(221, 207, 9);
+    margin-right: 4px;
+}
 .hard {
     color: #FFFFFF;
     padding: 2px 8px;

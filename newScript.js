@@ -144,6 +144,7 @@ class Playlist {
         let playlist = "";
         for (let i = firstSongIndex; i < firstSongIndex + this.songsPerPage && i < this.totalSongs; i++) {
             var song = this.currentPlaylist[i];
+            song.difficulty = song.difficulty ?? "NA";
             playlist += `<a href="${song.audioLink}" class="list-group-item list-group-item-action" value="${i}"><span class="${song.difficulty}">${song.difficulty.charAt(0)}</span>${song.orderId} - ${song.answer}</a>`;
         }
         return playlist;
